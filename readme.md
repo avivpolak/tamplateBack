@@ -17,21 +17,21 @@ This is a generic template for any backend project.
 
 ## Instructions for use
 
-0.fork this repo
-1."npm init -y"
-2."npm i"
-3."git init"
-4.add environment variables to the ".env" file
+-   0.fork this repo
+-   1."npm init -y"
+-   2."npm i"
+-   3."git init"
+-   4.add environment variables to the ".env" file
 
 ## Instructions for improove this tamplate
 
-0.open new branch, work there.
-1.make the changes
-2.keep it clear, and generic.
-3.keep in extandable.
-4.comment where nessery.
-5.ask for marge.
-6.if its working please remove from the ideas list.
+-   0.open new branch, work there.
+-   1.make the changes
+-   2.keep it clear, and generic.
+-   3.keep in extandable.
+-   4.comment where nessery.
+-   5.ask for marge.
+-   6.if its working please remove from the ideas list.
 
 ## ideas for improve
 
