@@ -1,11 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const morgan = require("morgan");
+
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 const app = express();
 require("dotenv").config();
 const userRouter = require("./routers/user");
+const { morganBodyLogger } = require("./morgan");
 const errorHandlingMiddleware = require("./middlewares/errorHandlingMiddleware");
 const unknownEndpoint = require("./middlewares/unknownEndpoint");
 
@@ -21,23 +22,8 @@ mongoose
     .catch((error) => {
         console.log("error connecting to MongoDB:", error.message);
     });
-morgan.token("body", function (req, res) {
-    return JSON.stringify(req.body);
-});
-app.use(
-    morgan(function (tokens, req, res) {
-        return [
-            tokens.method(req, res),
-            tokens.url(req, res),
-            tokens.status(req, res),
-            tokens.res(req, res, "content-length"),
-            "-",
-            tokens["response-time"](req, res),
-            "ms",
-            tokens.body(req, res),
-        ].join(" ");
-    })
-);
+
+app.use(morganBodyLogger);
 
 app.get("/", (req, res) => {
     res.send("working");
