@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 const app = express();
@@ -14,6 +13,7 @@ const port = process.env.PORT || 3000;
 
 const mongo = process.env.DATABASE;
 
+//connecting to database
 mongoose
     .connect(mongo)
     .then((result) => {
