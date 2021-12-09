@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const RefreshTokens = require('../models/refreshToken');
-// const { verifyToken, signToken } = require('../helpers/token');
 
 exports.login = async (req, res, next) => {
   try {
@@ -23,7 +22,7 @@ exports.login = async (req, res, next) => {
     });
 
     const accessToken = jwt.sign(user.toObject(), process.env.SECRET, {
-      expiresIn: '20s',
+      expiresIn: '120s',
     });
     await RefreshTokens.create({ refreshToken });
     return res.send({
@@ -93,9 +92,12 @@ exports.getNewAccessToken = async (req, res, next) => {
       return res.status(403).send('Token not Exsist');
     }
     console.log(tokenInDB.refreshToken);
-    const user = jwt.verify(tokenInDB.refreshToken, process.env.SECRET);
+    const user = jwt.decode(token);
     console.log(user);
-    const accessToken = jwt.sign(user, process.env.SECRET, { expiresIn: 0 });
+
+    const accessToken = jwt.sign({ id: user._id }, process.env.SECRET, {
+      expiresIn: 0,
+    });
 
     return res.status(200).send({
       accessToken,
